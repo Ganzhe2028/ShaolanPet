@@ -154,6 +154,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, AVAudioPlayerDelegate 
     /// 联动自检：真播一句，看对面的桌宠会不会接。测通道用，正常使用不带这个参数。
     let bridgeTest = CommandLine.arguments.contains("--bridge-test")
     let defaults = UserDefaults.standard
+    /// --trace 时把联动每一跳的时间、跳数、重叠打到 stdout，用来核对四步链的节奏。
+    let trace = CommandLine.arguments.contains("--trace")
+    func traceLog(_ text: String) {
+        guard trace else { return }
+        print("[SHAOLAN] \(String(format: "%.3f", Date().timeIntervalSince1970)) \(text)")
+        fflush(stdout)
+    }
     var resources: URL { Bundle.main.resourceURL! }
     var panelSize: NSSize { NSSize(width: size, height: (size - 16) * imageRatio + 52) }
 
@@ -276,6 +283,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, AVAudioPlayerDelegate 
                 lastPlayed = clip.id
                 pet.animate(true)
                 showCaption(clip.label, seconds: ready.duration + 0.5)
+                traceLog("开口 句=\(clip.id) \(clip.label)")
                 if !selfTest { bridge.announceSpeaking(clipID: clip.id, duration: ready.duration, label: clip.label) }
                 return
             }
@@ -409,6 +417,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, AVAudioPlayerDelegate 
             player = audio; audio.delegate = self; audio.volume = volume; audio.prepareToPlay()
             guard audio.play() else { throw NSError(domain: "无法播放音频", code: 3) }
             lastPlayed = clip.id; pet.animate(true); showCaption(clip.label, seconds: audio.duration + 0.4)
+            // 自己说完也广播：链上下一环（太对了）要接我的话。
+            traceLog("开口 句=\(clip.id) \(clip.label) 时长=\(String(format: "%.2f", audio.duration))")
             if !selfTest { bridge.announceSpeaking(clipID: clip.id, duration: audio.duration, label: clip.label) }
         } catch { showCaption("这句暂时无法播放", seconds: 4) }
     }
