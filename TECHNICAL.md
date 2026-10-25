@@ -29,6 +29,8 @@
 
 ## 安装
 
+要直接下载安装包，去 [Releases](https://github.com/Ganzhe2028/ShaolanPet/releases/latest) 下最新的 `.dmg`。下面是源码构建。
+
 需要 **Apple Silicon Mac** 和 **macOS 14 或更新版本**。
 
 ```sh
