@@ -82,7 +82,7 @@ open build/薄肌桌宠.app
 
 | 桌宠 | 说什么 | 在联动里的位置 |
 | --- | --- | --- |
-| [好事桌宠](https://github.com/yuhanfu513-ops/FengGe-Desktop-Pet) | 峰哥 · 11 句「这是个好事」 | 接太对了的话，但只在薄肌起的链里 |
+| [好事桌宠](https://github.com/Ganzhe2028/FengGe-Desktop-Pet) | 峰哥 · 11 句「这是个好事」 | 接太对了的话，但只在薄肌起的链里 |
 | [太对了 · SunPet](https://github.com/Ganzhe2028/SunPet) | 孙宇晨 · 28 句「太对了」 | 谁说话都接 |
 | **薄肌桌宠**（本仓库） | 邵艾伦 · 37 句 | 起头，自己不接 |
 
